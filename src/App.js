@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import Form from "./Components/Form";
 import ToDoList from "./Components/ToDoList";
+import Filter from "./Components/Filter";
 
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState('all');
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [filterInput, setFilterInput] = useState("");
+  
 
   //run once
   useEffect(() => {
@@ -23,17 +26,24 @@ function App() {
     saveLocalTodos();
   }, [todos, status]);
 
+  useEffect(() => {
+    filterHandler();
+  }, [filterInput]);
+
   //function
   const filterHandler = () => {
      switch(status){
       case 'completed':
-        setFilteredTodos(todos.filter(todo => todo.completed === true));
+        setFilteredTodos(todos.filter(todo => todo.completed === true)
+        .filter((v) => !v.text.indexOf(filterInput)));
         break;
       case 'uncompleted':
-        setFilteredTodos(todos.filter(todo => todo.completed === false));
+        setFilteredTodos(todos.filter(todo => todo.completed === false)
+        .filter((v) => !v.text.indexOf(filterInput)));
         break;
       default:
-        setFilteredTodos(todos);
+        console.log(todos.filter((v) => v.text.indexOf(filterInput)))
+        setFilteredTodos(todos.filter((v) => !v.text.indexOf(filterInput)));
         break;
     }
   };
@@ -57,6 +67,10 @@ function App() {
       <header>
         <h1>Todo List</h1>
       </header>
+      <Filter
+      filterInput={filterInput}
+      setFilterInput={setFilterInput}
+      />
       <Form 
       inputText={inputText} 
       todos={todos} 
