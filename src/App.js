@@ -25,7 +25,7 @@ function App() {
 
   //function
   const filterHandler = () => {
-    switch(status){
+     switch(status){
       case 'completed':
         setFilteredTodos(todos.filter(todo => todo.completed === true));
         break;
@@ -37,7 +37,7 @@ function App() {
         break;
     }
   };
-
+   
   //save to local
   const saveLocalTodos = () => {
    localStorage.setItem("todos", JSON.stringify(todos));
@@ -47,7 +47,7 @@ function App() {
     if (localStorage.getItem("todos") === null){
       localStorage.setItem("todos", JSON.stringify([]));
     } else {
-      let todoLocal = JSON.parse(localStorage.getItem());
+      let todoLocal = JSON.parse(localStorage.getItem("todos"));
       setTodos(todoLocal);
     }
   };

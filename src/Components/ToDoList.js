@@ -2,8 +2,14 @@ import React from "react";
 import Todo from "./Todo";
 
 const ToDoList = ({ todos, setTodos, filteredTodos }) => {
-    return(
-        <div className="todo-container">
+   
+    const clearAllHandler = () => {
+        setTodos([]);
+    };
+
+     return(
+
+       <div className="todo-container">
         <ul className="todo-list">
             {filteredTodos.map(todo => (
                 <Todo 
@@ -14,9 +20,9 @@ const ToDoList = ({ todos, setTodos, filteredTodos }) => {
                 todo={todo}
                 />
             ))}
+             <button onClick={clearAllHandler} className="clear-btn">Clear all todos</button>
         </ul>
-        
-        </div>
+       </div>
     );
 };
 
